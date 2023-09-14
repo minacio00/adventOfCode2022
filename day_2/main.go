@@ -18,6 +18,27 @@ func returnPlayerScore(played string) int {
 		return -1
 	}
 }
+func returnLabels(op string, pl string) (string, string) {
+	switch pl {
+	case "X":
+		pl = "Rock"
+	case "Y":
+		pl = "Papper"
+	case "Z":
+		pl = "Scissors"
+	default:
+
+	}
+	switch op {
+	case "A":
+		op = "Rock"
+	case "B":
+		op = "Papper"
+	case "C":
+		op = "Scissors"
+	}
+	return op, pl
+}
 func main() {
 	file, _ := os.Open("./input.txt")
 
@@ -26,8 +47,10 @@ func main() {
 	totalPoints := 0
 	for scanner.Scan() {
 		line := scanner.Text()
+		println(totalPoints)
 		line = strings.ReplaceAll(line, " ", "")
-		if string(line[0]) == string(line[1]) {
+		opponent, player := returnLabels(string(line[0]), string(line[1]))
+		if opponent == player {
 			totalPoints += 3 + returnPlayerScore(string(line[1]))
 		} else {
 			r := returnPlayerScore(string(line[1]))
