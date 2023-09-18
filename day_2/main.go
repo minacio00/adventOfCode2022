@@ -1,85 +1,22 @@
 package main
 
 import (
-	"bufio"
-	"os"
-	"strings"
+	part2 "day2/Part_2"
 )
 
-func returnPlayerScore(played string) int {
-	switch played {
-	case "X":
-		return 1
-	case "Y":
-		return 2
-	case "Z":
-		return 3
-	default:
-		return -1
-	}
-}
-func returnLabels(op string, pl string) (string, string) {
-	switch pl {
-	case "X":
-		pl = "Rock"
-	case "Y":
-		pl = "Papper"
-	case "Z":
-		pl = "Scissors"
-	default:
+type Play int
 
-	}
-	switch op {
-	case "A":
-		op = "Rock"
-	case "B":
-		op = "Papper"
-	case "C":
-		op = "Scissors"
-	}
-	return op, pl
+const (
+	X Play = iota
+	Y
+	Z
+)
+
+func (p *Play) String() string {
+	return [...]string{"X", "Y", "Z"}[*p]
 }
+
 func main() {
-	file, _ := os.Open("./input.txt")
-
-	defer file.Close()
-	scanner := bufio.NewScanner(file)
-	totalPoints := 0
-	for scanner.Scan() {
-		line := scanner.Text()
-		println(totalPoints)
-		line = strings.ReplaceAll(line, " ", "")
-		opponent, player := returnLabels(string(line[0]), string(line[1]))
-		if opponent == player {
-			totalPoints += 3 + returnPlayerScore(string(line[1]))
-		} else {
-			r := returnPlayerScore(string(line[1]))
-			switch char := string(line[0]); char {
-			case "A":
-				if r == 2 {
-					// if 2 equals papper
-					totalPoints += r + 6
-				} else if r == 3 {
-					// if 3 scissor
-					totalPoints += r
-				}
-			case "B":
-				if r == 1 {
-					// if 1 equal rock
-					totalPoints += r
-				} else if r == 3 {
-					totalPoints += r + 6
-				}
-			case "C":
-				if r == 1 {
-					totalPoints += r + 6
-				} else if r == 2 {
-					totalPoints += r
-				}
-			}
-
-		}
-
-	}
-	println(totalPoints)
+	// part1.SolvePart1()
+	part2.SolvePart2()
 }
